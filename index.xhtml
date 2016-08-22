@@ -1,0 +1,104 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:ns="en">
+<!--
+Copyright 2016 - Dario Ostuni <another.code.996@gmail.com>
+
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<head>
+<meta charset="UTF-8"/>
+<title>Kalculator - K resolution calculator</title>
+<script>
+//<![CDATA[
+function calculate_resolution(aspect_ratio, k)
+{
+    if(aspect_ratio < 1.0)
+        aspect_ratio = 1.0 / aspect_ratio;
+    var res = new Object();
+    res.width = 1024.0;
+    res.height = 540.0;
+    if(aspect_ratio > res.width / res.height)
+        res.width = aspect_ratio * res.height;
+    else
+        res.height = (1.0 / aspect_ratio) * res.width;
+    res.width *= k;
+    res.height *= k;
+    return res;
+}
+
+function calculate_resolution2(aspect_ratio, k)
+{
+    if(aspect_ratio < 1.0)
+        aspect_ratio = 1.0 / aspect_ratio;
+    var res = new Object();
+    res.width = 1024.0;
+    res.height = 540.0;
+    if(aspect_ratio < res.width / res.height)
+        res.width = aspect_ratio * res.height;
+    else
+        res.height = (1.0 / aspect_ratio) * res.width;
+    res.width *= k;
+    res.height *= k;
+    return res;
+}
+
+function calculate_k(width, height)
+{
+    var ret = calculate_resolution(width / height, 1.0);
+    return height / ret.height;
+}
+
+function calculate_k2(width, height)
+{
+    var ret = calculate_resolution2(width / height, 1.0);
+    return height / ret.height;
+}
+
+function do1()
+{
+    var width = parseFloat(document.getElementById("w").value);
+    var height = parseFloat(document.getElementById("h").value);
+    var k = parseFloat(document.getElementById("k").value);
+    var ret = calculate_resolution(width / height, k);
+    var ret2 = calculate_resolution2(width / height, k);
+    document.getElementById("out1").innerHTML = "Using the monitor rule the resolution is " + Math.round(ret2.width) + "x" + Math.round(ret2.height) + "<br/>";
+    document.getElementById("out1").innerHTML += "Using the general rule the resolution is " + Math.round(ret.width) + "x" + Math.round(ret.height);
+}
+
+function do2()
+{
+    var width = parseFloat(document.getElementById("w2").value);
+    var height = parseFloat(document.getElementById("h2").value);
+    var ret = calculate_k(width, height);
+    var ret2 = calculate_k2(width, height);
+    document.getElementById("out2").innerHTML = "Using the monitor rule K is " + ret2 + "<br/>";
+    document.getElementById("out2").innerHTML += "Using the general rule K is " + ret;
+}
+//]]>
+</script>
+</head>
+<body>
+<h1>Calculate resolution from aspect ratio and K</h1>
+Aspect ratio: <input type="text" id="w"/>:<input type="text" id="h"/><br/>
+K: <input type="text" id="k"/><br/>
+<button type="button" onclick="do1();">Calculate</button>
+<p id="out1"></p>
+<br/><br/><br/>
+<h1>Calculate K from resolution</h1>
+Resolution: <input type="text" id="w2"/>×<input type="text" id="h2"/><br/>
+<button type="button" onclick="do2();">Calculate</button>
+<p id="out2"></p>
+</body>
+</html>
