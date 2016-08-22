@@ -73,8 +73,8 @@ function do1()
     var k = parseFloat(document.getElementById("k").value);
     var ret = calculate_resolution(width / height, k);
     var ret2 = calculate_resolution2(width / height, k);
-    document.getElementById("out1").innerHTML = "Using the monitor rule the resolution is " + Math.round(ret2.width) + "x" + Math.round(ret2.height) + "<br/>";
-    document.getElementById("out1").innerHTML += "Using the general rule the resolution is " + Math.round(ret.width) + "x" + Math.round(ret.height);
+    document.getElementById("out1").innerHTML = "Using the monitor rule the resolution is " + Math.round(ret2.width) + "×" + Math.round(ret2.height) + "<br/>";
+    document.getElementById("out1").innerHTML += "Using the general rule the resolution is " + Math.round(ret.width) + "×" + Math.round(ret.height);
 }
 
 function do2()
