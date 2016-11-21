@@ -17,90 +17,171 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<head>
-<meta charset="UTF-8"/>
-<title>Kalculator - K resolution calculator</title>
-<script>
-// <![CDATA[
-// @license magnet:?xt=urn:btih:8e4f440f4c65981c5bf93c76d35135ba5064d8b7&dn=apache-2.0.txt Apache2
-function calculate_resolution(aspect_ratio, k)
-{
-    if(aspect_ratio < 1.0)
-        aspect_ratio = 1.0 / aspect_ratio;
-    var res = new Object();
-    res.width = 1024.0;
-    res.height = 540.0;
-    if(aspect_ratio > res.width / res.height)
-        res.width = aspect_ratio * res.height;
-    else
-        res.height = (1.0 / aspect_ratio) * res.width;
-    res.width *= k;
-    res.height *= k;
-    return res;
-}
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Kalculator - K resolution calculator</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
+    <script>
+    // <![CDATA[
+    // @license magnet:?xt=urn:btih:8e4f440f4c65981c5bf93c76d35135ba5064d8b7&dn=apache-2.0.txt Apache2
+    function calculate_resolution(aspect_ratio, k)
+    {
+        if(aspect_ratio < 1.0)
+            aspect_ratio = 1.0 / aspect_ratio;
+        var res = new Object();
+        res.width = 1024.0;
+        res.height = 540.0;
+        if(aspect_ratio > res.width / res.height)
+            res.width = aspect_ratio * res.height;
+        else
+            res.height = (1.0 / aspect_ratio) * res.width;
+        res.width *= k;
+        res.height *= k;
+        return res;
+    }
 
-function calculate_resolution2(aspect_ratio, k)
-{
-    if(aspect_ratio < 1.0)
-        aspect_ratio = 1.0 / aspect_ratio;
-    var res = new Object();
-    res.width = 1024.0;
-    res.height = 540.0;
-    if(aspect_ratio < res.width / res.height)
-        res.width = aspect_ratio * res.height;
-    else
-        res.height = (1.0 / aspect_ratio) * res.width;
-    res.width *= k;
-    res.height *= k;
-    return res;
-}
+    function calculate_resolution2(aspect_ratio, k)
+    {
+        if(aspect_ratio < 1.0)
+            aspect_ratio = 1.0 / aspect_ratio;
+        var res = new Object();
+        res.width = 1024.0;
+        res.height = 540.0;
+        if(aspect_ratio < res.width / res.height)
+            res.width = aspect_ratio * res.height;
+        else
+            res.height = (1.0 / aspect_ratio) * res.width;
+        res.width *= k;
+        res.height *= k;
+        return res;
+    }
 
-function calculate_k(width, height)
-{
-    var ret = calculate_resolution(width / height, 1.0);
-    return height / ret.height;
-}
+    function calculate_k(width, height)
+    {
+        var ret = calculate_resolution(width / height, 1.0);
+        return height / ret.height;
+    }
 
-function calculate_k2(width, height)
-{
-    var ret = calculate_resolution2(width / height, 1.0);
-    return height / ret.height;
-}
+    function calculate_k2(width, height)
+    {
+        var ret = calculate_resolution2(width / height, 1.0);
+        return height / ret.height;
+    }
 
-function do1()
-{
-    var width = parseFloat(document.getElementById("w").value);
-    var height = parseFloat(document.getElementById("h").value);
-    var k = parseFloat(document.getElementById("k").value);
-    var ret = calculate_resolution(width / height, k);
-    var ret2 = calculate_resolution2(width / height, k);
-    document.getElementById("out1").innerHTML = "Using the monitor rule the resolution is " + Math.round(ret2.width) + "×" + Math.round(ret2.height) + "<br/>";
-    document.getElementById("out1").innerHTML += "Using the general rule the resolution is " + Math.round(ret.width) + "×" + Math.round(ret.height);
-}
+    function do1()
+    {
+        var width = parseFloat(document.getElementById("w").value);
+        var height = parseFloat(document.getElementById("h").value);
+        var k = parseFloat(document.getElementById("k").value);
+        var ret = calculate_resolution(width / height, k);
+        var ret2 = calculate_resolution2(width / height, k);
+        document.getElementById("out1").innerHTML = "Using the monitor rule the resolution is " + Math.round(ret2.width) + "×" + Math.round(ret2.height) + "<br/>";
+        document.getElementById("out1").innerHTML += "Using the general rule the resolution is " + Math.round(ret.width) + "×" + Math.round(ret.height);
+    }
 
-function do2()
-{
-    var width = parseFloat(document.getElementById("w2").value);
-    var height = parseFloat(document.getElementById("h2").value);
-    var ret = calculate_k(width, height);
-    var ret2 = calculate_k2(width, height);
-    document.getElementById("out2").innerHTML = "Using the monitor rule K is " + ret2 + "<br/>";
-    document.getElementById("out2").innerHTML += "Using the general rule K is " + ret;
-}
-// @license-end
-// ]]>
-</script>
-</head>
-<body>
-<h1>Calculate resolution from aspect ratio and K</h1>
-Aspect ratio: <input type="text" id="w"/>:<input type="text" id="h"/><br/>
-K: <input type="text" id="k"/><br/>
-<button type="button" onclick="do1();">Calculate</button>
-<p id="out1"></p>
-<br/><br/><br/>
-<h1>Calculate K from resolution</h1>
-Resolution: <input type="text" id="w2"/>×<input type="text" id="h2"/><br/>
-<button type="button" onclick="do2();">Calculate</button>
-<p id="out2"></p>
-</body>
+    function do2()
+    {
+        var width = parseFloat(document.getElementById("w2").value);
+        var height = parseFloat(document.getElementById("h2").value);
+        var ret = calculate_k(width, height);
+        var ret2 = calculate_k2(width, height);
+        document.getElementById("out2").innerHTML = "Using the monitor rule K is " + ret2 + "<br/>";
+        document.getElementById("out2").innerHTML += "Using the general rule K is " + ret;
+    }
+    // @license-end
+    // ]]>
+    </script>
+  </head>
+  <body>
+    <div class="jumbotron">
+      <div class="container text-center">
+        <h1>Kalculator</h1>
+        <h2>K Resolution Calculator</h2>
+        <i>Copyright 2016 - Dario Ostuni <a href="mailto:another.code.996@gmail.com?Subject=Kalculator" target="_top">another.code.996@gmail.com</a></i>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="text-center">
+          <div class="col-md-6">
+            <h2>Calculate resolution from aspect ratio and K</h2>
+          </div>
+          <div class="col-md-6">
+            <h2>Calculate K from resolution</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container" style="padding: 10px">
+      <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-3">
+                <p style="font-weight: bold; font-size: 120%">Aspect ratio:</p>
+              </div>
+              <div class="col-md-9">
+                <input type="text" id="w"/>:<input type="text" id="h"/>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-3">
+                  <p style="font-weight: bold; font-size: 120%">Resolution:</p>
+              </div>
+              <div class="col-md-9">
+                <input type="text" id="w2"/>×<input type="text" id="h2"/>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-3">
+              <p style="font-weight: bold; font-size: 120%">K:</p>
+            </div>
+            <div class="col-md-9">
+              <input type="text" id="k"/>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <br/>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="padding: 10px">
+      <div class="row">
+        <div class="col-md-6">
+          <button type="button" onclick="do1();" class="center-block">Calculate</button>
+        </div>
+        <div class="col-md-6">
+          <button type="button" onclick="do2();" class="center-block">Calculate</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="padding: 10px">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="text-center" style="font-weight: bold" id="out1"></p>
+        </div>
+        <div class="col-md-6">
+            <p class="text-center" style="font-weight: bold" id="out2"></p>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+  </body>
 </html>
